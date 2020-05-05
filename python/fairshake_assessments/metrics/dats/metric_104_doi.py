@@ -1,4 +1,5 @@
-import requests
+import urllib.request
+import urllib.error
 from fairshake_assessments.core import metric
 from fairshake_assessments.utils.jsonld_frame import jsonld_frame
 

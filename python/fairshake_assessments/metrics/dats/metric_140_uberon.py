@@ -4,11 +4,12 @@ from fairshake_assessments.core import metric
 from fairshake_assessments.utils.jsonld_frame import jsonld_frame
 from fairshake_assessments.utils.force_list import force_list
 from fairshake_assessments.utils.IRI_to_NS import IRI_to_NS
+from fairshake_assessments.utils.fetch_and_cache import fetch_and_cache
 
 
-UBERON = pronto.Ontology('http://purl.obolibrary.org/obo/uberon/uberon.owl')
-UBERON_reversed = { node.name: node.id for node in UBERON }
-UBERON_reversed_synonyms = { synonym: node.id for node in UBERON for synonym in node.synonyms }
+UBERON = pronto.Ontology(fetch_and_cache('http://purl.obolibrary.org/obo/uberon.owl', '.cache/uberon.owl'))
+UBERON_reversed = { node.name: node.id for node in map(UBERON.get, UBERON) if node }
+UBERON_reversed_synonyms = { synonym: node.id for node in map(UBERON.get, UBERON) if node for synonym in node.synonyms }
 
 @metric({
   '@id': 140,
@@ -16,7 +17,7 @@ UBERON_reversed_synonyms = { synonym: node.id for node in UBERON for synonym in 
   'description': 'An anatomical part is present with a valid UBERON identifier',
   'principle': 'Interoperable',
 })
-def _(doc):
+def metric_140_uberon(doc):
   anatomical_parts = list(map(json.loads,set(
     json.dumps({
       'value': isAbout['name'],

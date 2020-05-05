@@ -1,6 +1,7 @@
 import json
 from fairshake_assessments.core import metric
 from fairshake_assessments.utils.jsonld_frame import jsonld_frame
+from fairshake_assessments.utils.force_list import force_list
 
 
 @metric({

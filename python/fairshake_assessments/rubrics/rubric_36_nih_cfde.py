@@ -1,29 +1,42 @@
-''' Here we define and codify the aspects of the FAIR assessment and mechanism by which
-they will be evaluated.
-'''
+from fairshake_assessments.metrics.dats import (
+  metric_27_contact_pi,
+  metric_104_doi,
+  metric_107_dats,
+  metric_108_resource_identifier,
+  metric_110_access_protocol,
+  metric_116_data_usage_license,
+  metric_136_program,
+  metric_137_project,
+  metric_138_institution,
+  metric_139_bao,
+  metric_140_uberon,
+  metric_141_mondo,
+  metric_142_edam,
+  metric_143_ncbitaxon,
+  metric_144_cellosaurus,
+  metric_145_landing_page,
+)
 
-import fairshake_assessments.metrics.dats
-
-rubric = {
+rubric_36_nih_cfde = {
   '@id': 36,
   'name': 'NIH CFDE Interoperability',
   'description': 'This rubric identifies aspects of the metadata models which promote interoperable dataset querying and filtering',
   'metrics': [
-    fairshake_assessments.metrics.dats.metric_107_dats,
-    fairshake_assessments.metrics.dats.metric_136_program,
-    fairshake_assessments.metrics.dats.metric_137_project,
-    fairshake_assessments.metrics.dats.metric_27_contact_pi,
-    fairshake_assessments.metrics.dats.metric_138_institution,
-    fairshake_assessments.metrics.dats.metric_110_access_protocol,
-    fairshake_assessments.metrics.dats.metric_139_bao,
-    fairshake_assessments.metrics.dats.metric_140_uberon,
-    fairshake_assessments.metrics.dats.metric_141_mondo,
-    fairshake_assessments.metrics.dats.metric_142_edam,
-    fairshake_assessments.metrics.dats.metric_143_ncbitaxon,
-    fairshake_assessments.metrics.dats.metric_144_cellosaurus,
-    fairshake_assessments.metrics.dats.metric_116_data_usage_license,
-    fairshake_assessments.metrics.dats.metric_104_doi,
-    fairshake_assessments.metrics.dats.metric_108_resource_identifier,
-    fairshake_assessments.metrics.dats.metric_145_landing_page,
+    metric_27_contact_pi.metric_27_contact_pi,
+    metric_104_doi.metric_104_doi,
+    metric_107_dats.metric_107_dats,
+    metric_108_resource_identifier.metric_108_resource_identifier,
+    metric_110_access_protocol.metric_110_access_protocol,
+    metric_116_data_usage_license.metric_116_data_usage_license,
+    metric_136_program.metric_136_program,
+    metric_137_project.metric_137_project,
+    metric_138_institution.metric_138_institution,
+    metric_139_bao.metric_139_bao,
+    metric_140_uberon.metric_140_uberon,
+    metric_141_mondo.metric_141_mondo,
+    metric_142_edam.metric_142_edam,
+    metric_143_ncbitaxon.metric_143_ncbitaxon,
+    metric_144_cellosaurus.metric_144_cellosaurus,
+    metric_145_landing_page.metric_145_landing_page,
   ],
 }

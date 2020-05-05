@@ -4,11 +4,12 @@ from fairshake_assessments.core import metric
 from fairshake_assessments.utils.jsonld_frame import jsonld_frame
 from fairshake_assessments.utils.force_list import force_list
 from fairshake_assessments.utils.IRI_to_NS import IRI_to_NS
+from fairshake_assessments.utils.fetch_and_cache import fetch_and_cache
 
 
-MONDO = pronto.Ontology('http://purl.obolibrary.org/obo/mondo.obo')
-MONDO_reversed = { node.name: node.id for node in MONDO }
-MONDO_reversed_synonyms = { synonym: node.id for node in MONDO for synonym in node.synonyms }
+MONDO = pronto.Ontology(fetch_and_cache('http://purl.obolibrary.org/obo/mondo.owl', '.cache/mondo.owl'))
+MONDO_reversed = { node.name: node.id for node in map(MONDO.get, MONDO) if node }
+MONDO_reversed_synonyms = { synonym: node.id for node in map(MONDO.get, MONDO) if node for synonym in node.synonyms }
 
 @metric({
   '@id': 141,

@@ -4,11 +4,12 @@ from fairshake_assessments.core import metric
 from fairshake_assessments.utils.jsonld_frame import jsonld_frame
 from fairshake_assessments.utils.force_list import force_list
 from fairshake_assessments.utils.IRI_to_NS import IRI_to_NS
+from fairshake_assessments.utils.fetch_and_cache import fetch_and_cache
 
 
-EDAM = pronto.Ontology('http://edamontology.org/EDAM.owl')
-EDAM_reversed = { node.name: node.id for node in EDAM }
-EDAM_reversed_synonyms = { synonym: node.id for node in EDAM for synonym in node.synonyms }
+EDAM = pronto.Ontology(fetch_and_cache('http://edamontology.org/EDAM.owl', '.cache/EDAM.owl'))
+EDAM_reversed = { node.name: node.id for node in map(EDAM.get, EDAM) if node }
+EDAM_reversed_synonyms = { synonym: node.id for node in map(EDAM.get, EDAM) if node for synonym in node.synonyms }
 
 @metric({
   '@id': 142,

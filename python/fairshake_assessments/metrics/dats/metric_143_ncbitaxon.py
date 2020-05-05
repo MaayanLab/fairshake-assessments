@@ -4,11 +4,12 @@ from fairshake_assessments.core import metric
 from fairshake_assessments.utils.jsonld_frame import jsonld_frame
 from fairshake_assessments.utils.force_list import force_list
 from fairshake_assessments.utils.IRI_to_NS import IRI_to_NS
+from fairshake_assessments.utils.fetch_and_cache import fetch_and_cache
 
 
-NCBITaxon = pronto.Ontology('http://purl.obolibrary.org/obo/ncbitaxon.owl')
-NCBITaxon_reversed = { node.name: node.id for node in NCBITaxon }
-NCBITaxon_reversed_synonyms = { synonym: node.id for node in NCBITaxon for synonym in node.synonyms }
+NCBITaxon = pronto.Ontology(fetch_and_cache('http://purl.obolibrary.org/obo/ncbitaxon.obo', '.cache/ncbitaxon.obo'))
+NCBITaxon_reversed = { node.name: node.id for node in map(NCBITaxon.get, NCBITaxon) if node }
+NCBITaxon_reversed_synonyms = { synonym: node.id for node in map(NCBITaxon.get, NCBITaxon) if node for synonym in node.synonyms }
 
 @metric({
   '@id': 143,

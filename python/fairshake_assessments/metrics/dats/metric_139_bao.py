@@ -4,11 +4,12 @@ from fairshake_assessments.core import metric
 from fairshake_assessments.utils.jsonld_frame import jsonld_frame
 from fairshake_assessments.utils.force_list import force_list
 from fairshake_assessments.utils.IRI_to_NS import IRI_to_NS
+from fairshake_assessments.utils.fetch_and_cache import fetch_and_cache
 
 
-BAO = pronto.Ontology('http://www.bioassayontology.org/bao/bao_complete.owl')
-BAO_reversed = { node.name: node.id for node in BAO }
-BAO_reversed_synonyms = { synonym: node.id for node in BAO for synonym in node.synonyms }
+BAO = pronto.Ontology(fetch_and_cache('http://www.bioassayontology.org/bao/bao_complete.owl', '.cache/bao_complete.owl'))
+BAO_reversed = { node.name: node.id for node in map(BAO.get, BAO) if node }
+BAO_reversed_synonyms = { synonym: node.id for node in map(BAO.get, BAO) if node for synonym in node.synonyms }
 
 @metric({
   '@id': 139,
