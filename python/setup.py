@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
   name='fairshake_assessments',
-  version='0.1',
+  version='0.0.0',
   url='https://github.com/maayanLab/fairshake-assessments/',
   author='Daniel J. B. Clarke',
   author_email='u8sand@gmail.com',
