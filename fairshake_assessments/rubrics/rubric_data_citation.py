@@ -16,9 +16,9 @@ from fairshake_assessments.metrics.schema_org import (
 from fairshake_assessments.resolvers.schema_org import (
   resolver_http_html,
   resolver_http_html_meta,
-  resolver_http_html_jsonld_content_negotation,
-  resolver_http_html_jsonld_extruct,
-  resolver_http_html_options,
+  resolver_http_jsonld_content_negotation,
+  resolver_http_jsonld_extruct,
+  resolver_http_options,
 )
 
 rubric_data_citation = {
@@ -43,8 +43,8 @@ rubric_data_citation = {
   'resolvers': [
     resolver_http_html.resolver_http_html,
     resolver_http_html_meta.resolver_http_html_meta,
-    resolver_http_html_jsonld_content_negotation.resolver_http_html_jsonld_content_negotation,
-    resolver_http_html_jsonld_extruct.resolver_http_html_jsonld_extruct,
-    resolver_http_html_options.resolver_http_html_options,
+    resolver_http_jsonld_content_negotation.resolver_http_jsonld_content_negotation,
+    resolver_http_jsonld_extruct.resolver_http_jsonld_extruct,
+    resolver_http_options.resolver_http_options,
   ],
 }
