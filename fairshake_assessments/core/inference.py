@@ -1,10 +1,10 @@
 from jsonlddb import JsonLDDatabase
 
 def forward_chain_resolvers(resolvers, db, resolved):
-  for resolver in resolvers.values():
+  for resolver in resolvers:
     for node in db[resolver['frame']]:
       if not resolved.get(resolver['@id'], {}).get(node['@id'], False):
-        db.update(list(resolver['func'](node)))
+        db.insert(list(resolver['function'](node)))
         if resolved.get(resolver['@id']) is None:
           resolved[resolver['@id']] = {}
         resolved[resolver['@id']][node['@id']] = True
@@ -12,7 +12,7 @@ def forward_chain_resolvers(resolvers, db, resolved):
 
 def fully_resolve_jsonld(resolvers, jsonld):
   db = JsonLDDatabase()
-  db.update(jsonld)
+  db.insert(jsonld)
   # forward_chain until no new information can be resolved
   resolved = {}
   previous = None
