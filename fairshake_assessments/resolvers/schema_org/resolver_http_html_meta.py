@@ -14,7 +14,7 @@ from fairshake_assessments.utils.first_or import first_or
 def resolver_http_html_meta(node):
   for html in node['text/html']:
     try:
-      soup = bs4.BeautifulSoup(html)
+      soup = bs4.BeautifulSoup(html, features='lxml')
       title = first_or(soup.select('title'), {}).get('text')
       description = first_or(soup.select('meta[name="description"]'), {}).get('content')
       keywords = first_or(soup.select('meta[name="keywords"]'), {}).get('content')

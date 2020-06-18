@@ -12,7 +12,7 @@ from fairshake_assessments.core import metric
 })
 def metric_data_citation_9(node):
   for html in node['text/html']:
-    soup = bs4.BeautifulSoup(html)
+    soup = bs4.BeautifulSoup(html, features='lxml')
     for bibtex in soup.find_all('a', { 'href': re.compile('\.bib$') }):
       yield {
         'answer': 1.0,
