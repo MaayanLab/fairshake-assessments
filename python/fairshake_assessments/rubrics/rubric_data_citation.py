@@ -1,0 +1,50 @@
+from fairshake_assessments.metrics.schema_org import (
+  metric_data_citation_1,
+  metric_data_citation_2,
+  metric_data_citation_3_1,
+  metric_data_citation_3_2,
+  metric_data_citation_4,
+  metric_data_citation_5,
+  metric_data_citation_6_1,
+  metric_data_citation_6_2,
+  metric_data_citation_7,
+  metric_data_citation_8,
+  metric_data_citation_9,
+  metric_data_citation_10,
+  metric_data_citation_11,
+)
+from fairshake_assessments.resolvers.schema_org import (
+  resolver_http_html,
+  resolver_http_html_meta,
+  resolver_http_html_jsonld_content_negotation,
+  resolver_http_html_jsonld_extruct,
+  resolver_http_html_options,
+)
+
+rubric_data_citation = {
+  '@id': 'datacitation',
+  'name': 'Data Citation',
+  'description': 'This rubric is based on evaluating [this data citation nature paper](https://doi.org/10.1038/s41597-019-0031-8).',
+  'metrics': [
+    metric_data_citation_1.metric_data_citation_1,
+    metric_data_citation_2.metric_data_citation_2,
+    metric_data_citation_3_1.metric_data_citation_3_1,
+    metric_data_citation_3_2.metric_data_citation_3_2,
+    metric_data_citation_4.metric_data_citation_4,
+    metric_data_citation_5.metric_data_citation_5,
+    metric_data_citation_6_1.metric_data_citation_6_1,
+    metric_data_citation_6_2.metric_data_citation_6_2,
+    metric_data_citation_7.metric_data_citation_7,
+    metric_data_citation_8.metric_data_citation_8,
+    metric_data_citation_9.metric_data_citation_9,
+    metric_data_citation_10.metric_data_citation_10,
+    metric_data_citation_11.metric_data_citation_11,
+  ],
+  'resolvers': [
+    resolver_http_html.resolver_http_html,
+    resolver_http_html_meta.resolver_http_html_meta,
+    resolver_http_html_jsonld_content_negotation.resolver_http_html_jsonld_content_negotation,
+    resolver_http_html_jsonld_extruct.resolver_http_html_jsonld_extruct,
+    resolver_http_html_options.resolver_http_html_options,
+  ],
+}
