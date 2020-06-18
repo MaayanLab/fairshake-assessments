@@ -1,4 +1,3 @@
-
 def assess_one(rubric, doc):
   assessment = {
     '@type': 'Assessment',
@@ -6,6 +5,10 @@ def assess_one(rubric, doc):
     'rubric': rubric['@id'],
     'answers': []
   }
+  if 'resolvers' in rubric:
+    from fairshake_assessments.core.inference import fully_resolve_jsonld
+    doc = fully_resolve_jsonld(rubric['resolvers'], doc)
+  #
   for metric in rubric['metrics']:
     for answer in metric['function'](doc):
       assessment['answers'].append({
