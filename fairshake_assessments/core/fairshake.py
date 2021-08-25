@@ -1,6 +1,5 @@
 import json
 from pyswaggerclient import SwaggerClient
-from pyswaggerclient.fetch import fetch_spec, parse_spec
 
 def get_fairshake_client(
   api_key=None,
