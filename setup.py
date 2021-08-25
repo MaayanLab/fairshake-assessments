@@ -12,5 +12,7 @@ setup(
   license='Apache-2.0',
   install_requires=[requirement for requirement in requirements if '://' not in requirement],
   dependency_links=[requirement for requirement in requirements if '://' in requirement],
-  packages=find_packages(exclude=('example',)),
+  extras_require={
+    'assessment': ["aiohttp"],
+  }
 )
