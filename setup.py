@@ -14,6 +14,6 @@ setup(
   install_requires=[requirement for requirement in requirements if '://' not in requirement],
   dependency_links=[requirement for requirement in requirements if '://' in requirement],
   entry_points={
-    'console_scripts': ['fairshake-assessments=fairshake_assessments.cli:cli'],
+    'console_scripts': ['fairshake-assessments=fairshake_assessments.cli.__main__:cli'],
   }
 )
