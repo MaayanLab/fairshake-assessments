@@ -1,4 +1,5 @@
 import os
+import pathlib
 import sys
 import json
 import click
@@ -14,8 +15,9 @@ def summarize(input, output, rubric):
   try:
     rubric_id = int(rubric)
   except:
-    sys.path.insert(0, os.path.abspath(os.curdir))
-    rubric_id = importlib.import_module(rubric).rubric['@id']
+    rubric_path = pathlib.Path(rubric).resolve()
+    sys.path.insert(0, str(rubric_path.parent))
+    rubric_id = importlib.import_module(rubric_path.stem).rubric['@id']
   #
   summary = {}
   for assessment in map(json.loads, input):
