@@ -135,8 +135,8 @@ def fairshake_prompt_digital_object(fairshake, rubric_id=None, project_id=None):
   try: existing = fairshake.actions.digital_object_list.call(url=url)['results']
   except: existing = []
   #
-  if existing: digital_object = dict(url=url, **fairshake_prompt_digital_object_choose(existing))
-  else: digital_object = dict(url=url, **fairshake_prompt_digital_object_new())
+  if existing: digital_object = dict(dict(url=url), **fairshake_prompt_digital_object_choose(existing))
+  else: digital_object = dict(dict(url=url), **fairshake_prompt_digital_object_new())
   #
   if 'id' not in digital_object:
     digital_object = fairshake.actions.digital_object_create.call(
