@@ -1,3 +1,5 @@
+click
 jsonlddb @ git+https://github.com/u8sand/jsonlddb.git
 PyLD
 pyswaggerclient @ git+https://github.com/u8sand/pyswaggerclient.git
+pyyaml
