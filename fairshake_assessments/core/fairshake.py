@@ -1,4 +1,5 @@
 import json
+import yaml
 from pyswaggerclient import SwaggerClient
 
 def get_fairshake_client(
