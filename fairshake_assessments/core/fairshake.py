@@ -95,3 +95,55 @@ def publish_fairshake_assessment(
       methodology=methodology,
     )
   )
+
+
+def fairshake_prompt_digital_object_new():
+  import click
+  click.echo('Register the digital object being assessed.')
+  title = click.prompt('Title', type=str)
+  description = click.prompt('Description', type=str)
+  image = click.prompt('Image', type=str, default='')
+  tags = click.prompt('Tags', type=str, default='')
+  return dict(title=title, description=description, image=image, tags=tags)
+
+def fairshake_prompt_digital_object_choose(values):
+  import click
+  if len(values) == 0: return None
+  elif len(values) == 1: return values[0]
+  else:
+    choices = {
+      chr(ord('a')+i): value
+      for i, value in enumerate(values)
+    }
+    click.echo(yaml.dump(choices))
+    choice = click.prompt('Digital object ([a], ..., [k], [n]ew, [1..] Digital Object ID)', type=str)
+    if choice in choices:
+      return choices[choice]
+    elif choice == 'n':
+      return fairshake_prompt_digital_object_new()
+    else:
+      return dict(id=int(choice))
+
+def fairshake_prompt_digital_object(fairshake, rubric_id, project_id):
+  import click
+  url = click.prompt('Digital object URL (or ID)', type=str)
+  #
+  try: return dict(id=int(url))
+  except: pass
+  #
+  try: existing = fairshake.actions.digital_object_list.call(url=url)['results']
+  except: existing = []
+  #
+  if existing: digital_object = dict(url=url, **fairshake_prompt_digital_object_choose(existing))
+  else: digital_object = dict(url=url, **fairshake_prompt_digital_object_new())
+  #
+  if 'id' not in digital_object:
+    digital_object = fairshake.actions.digital_object_create.call(
+      data=dict(
+        digital_object,
+        projects=digital_object.get('projects', []) if project_id is None else list(set(digital_object.get('projects', [])) | {project_id}),
+        rubrics=digital_object.get('rubrics', []) if rubric_id is None else list(set(digital_object.get('rubrics', [])) | {rubric_id}),
+      ),
+    )
+  #
+  return digital_object
