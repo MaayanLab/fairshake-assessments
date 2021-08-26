@@ -32,10 +32,8 @@ def summarize(input, output, rubric):
     metric['sigma'] = metric['sigma']**(1/2)
     answers.append(dict(
       metric=metric_id,
-      answer=dict(
-        value=metric['mu'],
-        comment=f"sigma={metric['sigma']:0.2f} N={metric['N']}",
-      ),
+      answer=metric['mu'],
+      comment=f"sigma={metric['sigma']:0.2f} N={metric['N']}",
     ))
   #
   assessment = dict(
