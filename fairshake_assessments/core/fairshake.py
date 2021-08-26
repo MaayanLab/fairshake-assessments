@@ -124,7 +124,7 @@ def fairshake_prompt_digital_object_choose(values):
     else:
       return dict(id=int(choice))
 
-def fairshake_prompt_digital_object(fairshake, rubric_id, project_id):
+def fairshake_prompt_digital_object(fairshake, rubric_id=None, project_id=None):
   import click
   url = click.prompt('Digital object URL (or ID)', type=str)
   #

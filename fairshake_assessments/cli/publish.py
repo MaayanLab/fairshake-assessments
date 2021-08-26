@@ -31,8 +31,14 @@ def publish(input, api_key, target_id, project_id):
   rubric_id = assessment['rubric']
   answers = assessment['answers']
   fairshake = get_fairshake_client(api_key=api_key)
-  if not target_id: digital_object = fairshake_prompt_digital_object()
-  else: digital_object = dict(id=target_id)
+  if not target_id:
+    digital_object = fairshake_prompt_digital_object(
+      fairshake,
+      rubric_id=rubric_id,
+      project_id=project_id,
+    )
+  else:
+    digital_object = dict(id=target_id)
   #
   click.echo('Using')
   click.echo(yaml.dump(digital_object))
