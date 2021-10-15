@@ -23,19 +23,18 @@ def summarize(input, output, rubric):
   for assessment in map(json.loads, input):
     for answer in assessment['answers']:
       if answer['metric']['@id'] not in summary:
-        summary[answer['metric']['@id']] = {'mu': 0., 'sigma': 0., 'N': 0}
-      summary[answer['metric']['@id']]['mu'] += answer['answer']['value']
-      summary[answer['metric']['@id']]['sigma'] += answer['answer']['value']**2
-      summary[answer['metric']['@id']]['N'] += 1
+        summary[answer['metric']['@id']] = []
+      summary[answer['metric']['@id']].append(answer['answer']['value'])
   #
   answers = []
-  for metric_id, metric in summary.items():
-    metric['mu'] = metric['mu']/metric['N']
-    metric['sigma'] = metric['sigma']**(1/2)
+  for metric_id, values in summary.items():
+    N = len(values)
+    mu = sum(values)/N
+    sigma = (sum((v - mu)**2 for v in values) / N)**(1/2)
     answers.append(dict(
       metric=metric_id,
-      answer=metric['mu'],
-      comment=f"sigma={metric['sigma']:0.2f} N={metric['N']}",
+      answer=mu,
+      comment=f"sigma={sigma:0.2f} N={N}",
     ))
   #
   assessment = dict(
