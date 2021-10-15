@@ -4,7 +4,7 @@ requirements = list(map(str.strip, open('requirements.txt', 'r').readlines()))
 
 setup(
   name='fairshake_assessments',
-  version='0.0.1',
+  version='0.0.2',
   url='https://github.com/maayanLab/fairshake-assessments/',
   author='Daniel J. B. Clarke',
   author_email='u8sand@gmail.com',
