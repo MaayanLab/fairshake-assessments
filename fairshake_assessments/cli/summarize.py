@@ -6,6 +6,7 @@ import click
 import importlib
 
 from fairshake_assessments.cli import cli
+from fairshake_assessments.utils.scale_linear import scaleLinear
 
 @cli.command()
 @click.option('-i', '--input', type=click.File('r'), help='Assessments in jsonl format')
@@ -27,14 +28,26 @@ def summarize(input, output, rubric):
       summary[answer['metric']['@id']].append(answer['answer']['value'])
   #
   answers = []
+  bins = ['bad', 'poor', 'okay', 'good', 'great']
+  scale = scaleLinear((0, 1), bins)
   for metric_id, values in summary.items():
+    # compute distribution statistics
     N = len(values)
     mu = sum(values)/N
     sigma = (sum((v - mu)**2 for v in values) / N)**(1/2)
+    # compute a answer distribution according to the ordinal bins
+    hist = { bin: 0 for bin in bins }
+    for value in values: hist[scale(value)] += 1
+    # add answer summary with supplement
     answers.append(dict(
       metric=metric_id,
       answer=mu,
       comment=f"sigma={sigma:0.2f} N={N}",
+      supplement=dict(
+        sigma=sigma,
+        N=N,
+        hist=hist,
+      ),
     ))
   #
   assessment = dict(
